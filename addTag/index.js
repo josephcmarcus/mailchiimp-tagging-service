@@ -9,8 +9,8 @@ client.setConfig({
 
 module.exports = async function (context) {
   // Obtain the listId, hashedId, and tagName from the context object
-  const listId = context.bindingData.params[0];
-  const body = context.bindingData.params[1]
+  const listId = context.bindingData.args[0];
+  const body = context.bindingData.args[1]
   // The hashedId is the MD5 hash of the email address from the context object
   const hashedId = md5(body.object.user.email);
   // The tagName is the name of the course from the context object
@@ -24,6 +24,6 @@ module.exports = async function (context) {
     return response;
   } catch (err) {
     // If the member doesn't exist, return null
-    return null;
+    return err;
   }
 };

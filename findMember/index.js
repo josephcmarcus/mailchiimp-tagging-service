@@ -8,8 +8,8 @@ client.setConfig({
 
 module.exports = async function (context) {
   // Obtain the listId and email from the context object
-  const listId = context.bindingData.params[0];
-  const body = context.bindingData.params[1]
+  const listId = context.bindingData.args[0];
+  const body = context.bindingData.args[1]
   const email = body.object.user.email;
 
   try {
@@ -17,7 +17,6 @@ module.exports = async function (context) {
     const response = await client.lists.getListMember(listId, email);
     return response;
   } catch (err) {
-    // If the member doesn't exist, return null
-    return null;
+    return err;
   }
 };

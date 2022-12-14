@@ -1,7 +1,7 @@
 {
   "bindings": [
     {
-      "name": "params",
+      "name": "args",
       "type": "activityTrigger",
       "direction": "in"
     }
