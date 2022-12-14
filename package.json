@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "@mailchimp/mailchimp_marketing": "^3.0.80",
-    "durable-functions": "^2.1.0"
+    "durable-functions": "^2.1.0",
+    "md5": "^2.3.0"
   }
 }
