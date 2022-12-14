@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "durable-functions": "^2.1.0"
   }
 }
