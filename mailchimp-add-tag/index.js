@@ -2,10 +2,6 @@
 
 module.exports = df.orchestrator(function* (context) {
   try {
-    // const listId = context.df.getInput().listId;
-    // const body = context.df.getInput().body.shift();
-    // const activityPayload = [];
-    // activityPayload.push(listId, body);
     const activityPayload = {
       listId: context.df.getInput().listId,
       body: context.df.getInput().body.shift(),
