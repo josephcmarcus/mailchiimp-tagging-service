@@ -10,6 +10,7 @@ This Azure Durable Function leverages the Mailchimp Node.js client library to:
 * Ensure that a listId is passed as a query parameter in the initial HTTP request that triggers the service. 
   * Reference the httpStarter index.js file to note where the listId is pulled from a listId query parameter. If desired, you can reconfigure how the listId is passed to the service.
 * Use environment variables to pass a Mailchimp API key and server designation to the Mailchimp node client. 
+  * Change the .env.placeholder filename to .env and replace the placeholder values with your own.
 * Since this service is currently used for tagging users who purchase courses from Teachable, the tag is simply the name of the course as defined by the webhook request body from the trigger HTTP request from Teachable. 
   * If you want to apply a different tag name, you will need to reconfigure the tagName variable in the addTag index.js file.
 
