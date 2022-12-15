@@ -1,5 +1,4 @@
 ﻿require("dotenv").config();
-const md5 = require("md5");
 const client = require("@mailchimp/mailchimp_marketing");
 
 client.setConfig({
@@ -8,22 +7,18 @@ client.setConfig({
 });
 
 module.exports = async function (context) {
-  // Obtain the listId, hashedId, and tagName from the context object
-  const listId = context.bindingData.args[0];
-  const body = context.bindingData.args[1]
-  // The hashedId is the MD5 hash of the email address from the context object
-  const hashedId = md5(body.object.user.email);
-  // The tagName is the name of the course from the context object
+  const { listId, body, subscriberHash } = context.bindingData.args;
+  // Set the name of the tag as the course name from the request body
   const tagName = body.object.course.name;
   // The tag object takes the tagName above and sets the status to active
   const tag = { tags: [{name: tagName, status: "active"}] }
 
   try {
-    // Use the mailchimp client to add a tag to a member
-    const response = await client.lists.updateListMemberTags(listId, hashedId, tag);
+    // Use the mailchimp client to add the tag to the member
+    const response = await client.lists.updateListMemberTags(listId, subscriberHash, tag);
     return response;
   } catch (err) {
-    // If the member doesn't exist, return null
-    return err;
+    context.log(err);
+    return null;
   }
 };

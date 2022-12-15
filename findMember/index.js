@@ -7,16 +7,22 @@ client.setConfig({
 });
 
 module.exports = async function (context) {
-  // Obtain the listId and email from the context object
-  const listId = context.bindingData.args[0];
-  const body = context.bindingData.args[1]
+  // Obtain the listId, request body from the activityPayload object
+  const { listId, body } = context.bindingData.args;
+  // Obtain the email from the request body
   const email = body.object.user.email;
-
   try {
     // Use the mailchimp client to see if a member exists in the list
-    const response = await client.lists.getListMember(listId, email);
+    // If the member exists, get the subscriberHash and return it along with the listID and body
+    const result = await client.lists.getListMember(listId, email);
+    const response = {
+      listId: listId,
+      body: body,
+      subscriberHash: result.id,
+    }
     return response;
   } catch (err) {
-    return err;
+    context.log(err);
+    return null;
   }
 };
